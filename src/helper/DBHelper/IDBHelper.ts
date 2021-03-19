@@ -10,14 +10,14 @@ interface IDBHelper {
   // deleteMany(collectionName: string, query: object): any
   // updateOne(collectionName: string, query: object, data: object): any
   // replace(collectionName: string, quety: object, data: object, opt: object): any
-  findOne(queryObj: IQueryObj): IQueryResult
-  findMany(queryObj: IQueryObj): IQueryResult
-  insertOne(queryObj: IQueryObj): IQueryResult
-  insertMany(queryObj: IQueryObj): IQueryResult
-  deleteOne(queryObj: IQueryObj): IQueryResult
-  deleteMany(queryObj: IQueryObj): IQueryResult
-  updateOne(queryObj: IQueryObj): IQueryResult
-  updateMany(queryObj: IQueryObj): IQueryResult
+  findOne(queryObj: IQueryObj): Promise<IQueryResult>
+  findMany(queryObj: IQueryObj): Promise<IQueryResult>
+  insertOne(queryObj: IQueryObj): Promise<IQueryResult>
+  insertMany(queryObj: IQueryObj): Promise<IQueryResult>
+  deleteOne(queryObj: IQueryObj): Promise<IQueryResult>
+  deleteMany(queryObj: IQueryObj): Promise<IQueryResult>
+  updateOne(queryObj: IQueryObj): Promise<IQueryResult>
+  updateMany(queryObj: IQueryObj): Promise<IQueryResult>
 
 
 

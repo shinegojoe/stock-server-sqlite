@@ -5,15 +5,13 @@ export interface IQueryObj {
   query: any
   insertData: any
   tabName: string
+  collectionName: string
 }
 
 export interface IQueryResult {
   data: any
 }
 
-class QueryObj {
-
-}
 
 export class QueryResult implements IQueryResult {
   private _data: any
@@ -34,6 +32,7 @@ export class SqliteQuery implements IQueryObj {
   private _query: any = undefined
   private _insertData: any = undefined
   private _tabName: string = ''
+  collectionName: string = ''
 
   
   constructor() {
@@ -68,4 +67,34 @@ export class SqliteQuery implements IQueryObj {
   }
 
   
+}
+
+export class MongoQuery implements IQueryObj {
+  sql: string = ''
+  private _query: any = undefined
+  private _insertData: any = undefined
+  tabName: string = ''
+  private _collectionName = ''
+
+  public set query(q: any) {
+    this._query = q
+  }
+  public get query() {
+    return this._query
+  }
+
+  public set insertData(data: any) {
+    this._insertData = data
+  }
+  public get insertData() {
+    return this._insertData
+  }
+
+  public set collectionName(name: string) {
+    this._collectionName = name
+  }
+  public get collectionName() {
+    return this._collectionName
+  }
+
 }
