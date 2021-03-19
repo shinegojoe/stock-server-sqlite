@@ -1,7 +1,7 @@
 require('module-alias/register')
-import MongoHelper from '../src/helper/DBHelper/mongoHelper'
-import SqlLiteHelper from '../src/helper/DBHelper/sqlliteHelper'
-import { SqliteQuery, QueryResult, IQueryObj, IQueryResult } from '../src/helper/DBHelper/IQueryObj'
+import MongoHelper from './helper/DBHelper/mongoHelper'
+import SqlLiteHelper from './helper/DBHelper/sqlliteHelper'
+import { SqliteQuery, QueryResult, IQueryObj, IQueryResult, MongoQuery } from './helper/DBHelper/IQueryObj'
 
 
 async function main() {
@@ -21,8 +21,11 @@ async function main() {
   // // }).catch((e)=> {
   // //   console.log("err", e)
   // // })
-  // const xx = await mgoHelper.findOne(collName, {})
-  // console.log("find one", xx)
+  const mq = new MongoQuery()
+  mq.collectionName = collName
+  mq.query = {}
+  const xx = await mgoHelper.findOne(mq)
+  console.log("find one", xx)
 
   // const yy = await mgoHelper.findMany(collName, {})
   // console.log("find many", yy)
@@ -53,7 +56,7 @@ class SqliteTester {
     this.sqlHelper = new SqlLiteHelper('sqlite.db')
   }
 
-  insertOne() {
+  async insertOne() {
     let sql = "INSERT INTO tab2(name,remark) VALUES ($name,$remark)"
     const data = {
       name: "qq5777",
@@ -62,11 +65,11 @@ class SqliteTester {
     const q = new SqliteQuery()
     q.sql = sql
     q.insertData = data
-    const res: IQueryResult = this.sqlHelper.insertOne(q)
+    const res: IQueryResult = await this.sqlHelper.insertOne(q)
     console.log("res", res)
   }
 
-  insertMany() {
+  async insertMany() {
     let sql = "INSERT INTO tab2(name,remark) VALUES ($name,$remark)"
     const data1 = { name: "data1", remark: "yy" }
     const data2 = { name: "data2", remark: "xx" }
@@ -74,23 +77,23 @@ class SqliteTester {
     const q = new SqliteQuery()
     q.sql = sql
     q.insertData = [data1, data2]
-    const res: IQueryResult = this.sqlHelper.insertMany(q)
+    const res: IQueryResult = await this.sqlHelper.insertMany(q)
     console.log("res", res)
 
   }
 
-  findOne() {
+  async findOne() {
     const sql = `SELECT * from tab2 WHERE name = $name`
 
     const query = { name: "data1"}
     const q = new SqliteQuery()
     q.sql = sql
     q.query = query
-    const res = this.sqlHelper.findOne(q)
+    const res = await this.sqlHelper.findOne(q)
     console.log("res", res)
   }
 
-  findMany() {
+  async findMany() {
     // const sql = `SELECT * from tab2 WHERE name = $name`
     const sql = `SELECT * from tab2`
 
@@ -98,11 +101,11 @@ class SqliteTester {
     const q = new SqliteQuery()
     q.sql = sql
     q.query = {}
-    const res = this.sqlHelper.findMany(q)
+    const res = await this.sqlHelper.findMany(q)
     console.log("res", res)
   }
 
-  deleteOne() {
+  async deleteOne() {
     // const sql = `SELECT * from tab2 WHERE name = $xxx`
     const sql = `DELETE from tab2 WHERE name = $xxx`
 
@@ -113,11 +116,11 @@ class SqliteTester {
     q.sql = sql
     q.query = param
     q.tabName = 'tab2'
-    const res: IQueryResult = this.sqlHelper.deleteOne(q)
+    const res: IQueryResult = await this.sqlHelper.deleteOne(q)
     console.log("res", res.data)
   }
 
-  deleteMany() {
+  async deleteMany() {
     const sql = `DELETE from tab2 WHERE name = $xxx`
     const param = {
       xxx: "data2" 
@@ -125,11 +128,11 @@ class SqliteTester {
     const q = new SqliteQuery()
     q.sql = sql
     q.query = param
-    const res: IQueryResult = this.sqlHelper.deleteMany(q)
+    const res: IQueryResult = await this.sqlHelper.deleteMany(q)
     console.log("res", res.data)
   }
 
-  updateOne() {
+  async updateOne() {
     const sql = `UPDATE tab2 SET name = $newName, remark = $remark WHERE name = $oldName`
     const param = {
       oldName: "newName",
@@ -140,11 +143,11 @@ class SqliteTester {
     q.sql = sql
     q.query = param
     q.tabName = 'tab2'
-    const res = this.sqlHelper.updateOne(q)
+    const res = await this.sqlHelper.updateOne(q)
     console.log('res', res)
   }
 
-  updateMany() {
+  async updateMany() {
     const sql = `UPDATE tab2 SET name = $newName, remark = $remark WHERE name = $oldName`
     const param = {
       oldName: "newName",
@@ -154,7 +157,7 @@ class SqliteTester {
     const q = new SqliteQuery()
     q.sql = sql
     q.query = param
-    const res = this.sqlHelper.runSql(q)
+    const res = await this.sqlHelper.runSql(q)
     console.log('res', res)
   }
 
@@ -166,7 +169,7 @@ class SqliteTester {
 
 function sqlTest() {
   const t = new SqliteTester()
-  t.insertOne()
+  // t.insertOne()
   // t.insertMany()
   // t.findMany()
   // t.findOne()
@@ -177,7 +180,7 @@ function sqlTest() {
   t.findMany()
 }
 
-sqlTest()
+// sqlTest()
 
 
-// main()
+main()

@@ -4,7 +4,7 @@
   "description": "",
   "main": "qq.js",
   "scripts": {
-    "start:dev": "ts-node ./src/index.ts",
+    "start:dev": "ts-node ./src/__index.ts",
     "start": "npm run build && node ./dist/index.js",
     "build": "tsc",
     "test": "mocha --require ts-node/register test/*.ts"

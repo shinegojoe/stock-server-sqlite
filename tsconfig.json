@@ -68,6 +68,6 @@
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["src/**/*.ts", "test/jwtTest.ts", "test/__index.ts"],          // 納入編譯範圍
+  "include": ["src/**/*.ts", "test/jwtTest.ts", "src/__index.ts"],          // 納入編譯範圍
   "exclude": ["node_modules", "dist"]  //不納入編譯範圍
 }
