@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb'
 import { IQueryObj, IQueryResult, QueryResult } from './IQueryObj'
 
 
-class MongoHelper {
+class MongoHelper implements IDBHelper {
   uri: string
   dbName: string
   opt: object
@@ -21,14 +21,17 @@ class MongoHelper {
     return client
 
   }
-  async insertOne(q: IQueryObj): Promise<object> {
+  async insertOne(q: IQueryObj): Promise<IQueryResult> {
     let client: any
     try {
       client = await this.connect()
       const database = client.db(this.dbName)
       const collection = database.collection(q.collectionName)
       const res = await collection.insertOne(q.insertData)
-      const queryRes = new QueryResult(res.insertedId)
+      const queryRes = new QueryResult({
+        insertedCount: res.insertedCount,
+        insertedId: res.insertedId
+      })
       return queryRes
 
     } catch(e) {
@@ -39,7 +42,7 @@ class MongoHelper {
     }
   }
 
-  async insertMany(q: IQueryObj, opt={}): Promise<any> {
+  async insertMany(q: IQueryObj, opt={}): Promise<IQueryResult> {
 
     let client: any
     try {
@@ -47,7 +50,9 @@ class MongoHelper {
       const database = client.db(this.dbName)
       const collection = database.collection(q.collectionName)
       const res = await collection.insertMany(q.insertData, opt)
-      const queryRes = new QueryResult(res.insertedCount)
+      const queryRes = new QueryResult({
+        insertedCount: res.insertedCount
+      })
       return queryRes
 
     } catch(e) {
@@ -76,7 +81,7 @@ class MongoHelper {
       await client.close()
     }
   }
-  async findMany(q: IQueryObj, options={}): Promise<object>{
+  async findMany(q: IQueryObj, options={}): Promise<IQueryResult>{
     let client: any
     const res: any[] = []
     try {
@@ -104,14 +109,16 @@ class MongoHelper {
       await client.close()
     }
   }
-  async deleteOne(q: IQueryObj): Promise<any> {
+  async deleteOne(q: IQueryObj): Promise<IQueryResult> {
     let client: any
     try {
       client = await this.connect()
       const db = client.db(this.dbName)
       const collection = db.collection(q.collectionName)
       const res = await collection.deleteOne(q.query)
-      return new QueryResult(res.deletedCount)
+      return new QueryResult({
+        deletedCount: res.deletedCount
+      })
 
     } catch(e) {
       throw e
@@ -120,14 +127,16 @@ class MongoHelper {
     }
   }
 
-  async deleteMany(q: IQueryObj): Promise<any> {
+  async deleteMany(q: IQueryObj): Promise<IQueryResult> {
     let client: any
     try {
       client = await this.connect()
       const db = client.db(this.dbName)
       const collection = db.collection(q.collectionName)
       const res = await collection.deleteMany(q.query)
-      return new QueryResult(res.deletedCount)
+      return new QueryResult({
+        deletedCount: res.deletedCount
+      })
     } catch(e) {
       throw e
     } finally{
@@ -135,14 +144,19 @@ class MongoHelper {
     }
   }
 
-  async updateOne(q: IQueryObj):Promise<any> {
+  async updateOne(q: IQueryObj):Promise<IQueryResult> {
     let client: any
     try {
       client = await this.connect()
       const db = client.db(this.dbName)
       const collection = db.collection(q.collectionName)
       const res = await collection.updateOne(q.query, q.insertData)
-      return new QueryResult(res.modifiedCount)
+      return new QueryResult({
+        modifiedCount: res.modifiedCount,
+        upsertedId: res.upsertedId,
+        upsertedCount: res.upsertedCount,
+        matchedCount: res.matchedCount
+      })
     } catch(e) {
       throw e
     } finally{
@@ -150,7 +164,27 @@ class MongoHelper {
     }
   }
 
-  async replace(q: IQueryObj, opt={}): Promise<any>{
+  async updateMany(q: IQueryObj): Promise<IQueryResult> {
+    let client: any
+    try {
+      client = await this.connect()
+      const db = client.db(this.dbName)
+      const collection = db.collection(q.collectionName)
+      const res = await collection.updateMany(q.query, q.insertData)
+      return new QueryResult({
+        modifiedCount: res.modifiedCount,
+        upsertedId: res.upsertedId,
+        upsertedCount: res.upsertedCount,
+        matchedCount: res.matchedCount
+      })
+    } catch(e) {
+      throw e
+    } finally{
+      await client.close()
+    }
+  }
+
+  async replace(q: IQueryObj, opt={}): Promise<IQueryResult>{
     let client: any
     try {
       client = await this.connect()
