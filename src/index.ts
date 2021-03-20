@@ -1,5 +1,5 @@
 import express, {Request, Response, NextFunction} from 'express'
-import bodyParser from 'body-parser'
+// import bodyParser from 'body-parser'
 
 import dgram from 'dgram'
 import NetKeepAlive from 'net-keepalive'
@@ -11,7 +11,7 @@ import WSServer from './helper/WSHelper/wsHelper'
 
 
 const app = express();
-app.use(bodyParser.json())
+app.use(express.json())
 
 
 app.use('/api', router)
@@ -19,8 +19,8 @@ app.use('/api', router)
 app.use(errorHandler)
 
 app.listen(3000, () => console.log('http server is running at port 3000.'));
-const ws = new WSServer(8080)
-ws.start()
+// const ws = new WSServer(8080)
+// ws.start()
 
 
 // const scan = () => {

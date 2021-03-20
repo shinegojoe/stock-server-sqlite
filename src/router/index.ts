@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import userRouter from './user.route'
-import sceneRouter from './scene.route'
+import stockInfoRouter from './stockInfo.route'
+import stockListRouter from './stockList.route'
 
 const router = Router()
 
-router.use('/', userRouter)
-router.use('/scene', sceneRouter)
+router.use('/stockInfo', stockInfoRouter)
+router.use('/stockList', stockListRouter)
 
 export default router
 
