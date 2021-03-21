@@ -12,15 +12,41 @@ export interface IQueryResult {
   data: any
 }
 
+export class Payload {
+  data: any
+}
+
+
+
+export class MgoPayload {
+  collectionName: string = ''
+  constructor(collectionName: string) {
+    this.collectionName = collectionName
+  }
+}
+
+// export class MongoPayload implements IPayload  {
+//   payload: MgoPayloadData 
+//   constructor(collName: string) {
+//     this.payload = new MgoPayloadData(collName)
+//   }
+//   getPayload(): MgoPayloadData {
+//     return this.payload
+//   }
+// }
+
+
+
+
 
 export class QueryResult implements IQueryResult {
-  private _data: any
+  data: any
   constructor(res: any) {
-    this._data = res
+    this.data = res
   }
-  public get data() {
-    return this._data
-  }
+  // public get data() {
+  //   return this._data
+  // }
 }
 
 // class MgoQuery implements IQueryObj {

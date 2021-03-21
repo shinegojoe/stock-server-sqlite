@@ -1,52 +1,37 @@
 require('dotenv').config()
 import { Request, Response, NextFunction} from 'express'
 import { body } from 'express-validator'
-import { MongoQuery, QueryResult } from '../helper/DBHelper/IQueryObj'
+import { MongoQuery, QueryResult, Payload } from '../helper/DBHelper/IQueryObj'
 import MongoHelper from '../helper/DBHelper/mongoHelper'
+import mongoCRUD from '../model/mongoCRUD.model'
 
 const uri: any = process.env['MONGO_HOST']
 const dbName: any = process.env['MONGO_DBNAME']
 const collName = 'twStock'
 const mgoHelper = new MongoHelper(uri, dbName)
 
-const add = async(req: Request, res: Response, next: NextFunction) => {
-  const mq1 = new MongoQuery()
-  mq1.collectionName = collName
-  mq1.query = req.body
-  const findOne = await mgoHelper.findOne(mq1)
-  console.log('findOne', findOne)
-  if(findOne.data === null) {
-    const mq2 = new MongoQuery()
-    mq2.collectionName = collName
-    mq2.insertData = req.body
-    const data = await mgoHelper.insertOne(mq2)
-    return data
-  } else {
-    const data = new QueryResult("data is exist")
-    return data
-  }
-
-  
-}
-
-const get = (req: Request, res: Response, next: NextFunction) => {
-
-}
-
-const list = async(req: Request, res: Response, next: NextFunction) => {
-  const mq = new MongoQuery()
-  mq.collectionName = collName
-  mq.query = req.body
-  const data = await mgoHelper.findMany(mq)
-  // console.log('yy', req.body)
+const add = async(req: Request) => {
+  const p = new Payload()
+  p.data = { collectionName: collName }
+  const data = await mongoCRUD.add(req, p)
   return data
 }
 
-const del = async(req: Request, res: Response, next: NextFunction) => {
-  const mq = new MongoQuery()
-  mq.collectionName = collName
-  mq.query = req.body
-  const data = await mgoHelper.deleteMany(mq)
+const get = (req: Request) => {
+
+}
+
+const list = async(req: Request) => {
+  const p = new Payload()
+  p.data = { collectionName: collName }
+  const data = await mongoCRUD.list(req, p)
+  return data
+}
+
+const del = async(req: Request) => {
+  const p = new Payload()
+  p.data = { collectionName: collName }
+  const data = await mongoCRUD.del(req, p)
   return data
 }
 
