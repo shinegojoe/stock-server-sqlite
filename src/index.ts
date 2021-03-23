@@ -1,13 +1,16 @@
 import express, {Request, Response, NextFunction} from 'express'
-// import bodyParser from 'body-parser'
 
-import dgram from 'dgram'
-import NetKeepAlive from 'net-keepalive'
-import net from 'net'
+// import dgram from 'dgram'
+// import NetKeepAlive from 'net-keepalive'
+// import net from 'net'
 import router from './router/index'
 import errorHandler from './utils/errorHandler'
-import WSServer from './helper/WSHelper/wsHelper'
+// import WSServer from './helper/WSHelper/wsHelper'
+import { SqliteQuery, IQueryResult, MongoQuery} from './helper/DBHelper/IQueryObj'
 
+
+// scp -r dist root@167.179.80.227:/home/
+// ssh root@167.179.80.227
 
 
 const app = express();
@@ -19,8 +22,10 @@ app.use('/api', router)
 app.use(errorHandler)
 
 app.listen(3000, () => console.log('http server is running at port 3000.'));
-// const ws = new WSServer(8080)
-// ws.start()
+// // const ws = new WSServer(8080)
+// // ws.start()
+
+
 
 
 // const scan = () => {

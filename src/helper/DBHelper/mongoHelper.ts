@@ -17,6 +17,8 @@ class MongoHelper implements IDBHelper {
 
   async connect(): Promise<any>{
     const client = new MongoClient(this.uri, this.opt)
+    // const client = new MongoClient(this.uri)
+
     await client.connect()
     return client
 
