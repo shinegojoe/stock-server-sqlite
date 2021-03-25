@@ -36,7 +36,8 @@ const list = async(req: Request, payload: any) => {
 
   const mq = new MongoQuery()
   mq.collectionName = p.collectionName
-  mq.query = req.body
+  mq.query = req.query
+  console.log("pay", req.query)
   const data = await mgoHelper.findMany(mq)
   // console.log('yy', req.body)
   return data
