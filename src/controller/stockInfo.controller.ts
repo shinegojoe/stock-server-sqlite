@@ -22,7 +22,7 @@ const get = (req: Request, res: Response, next: NextFunction) => {
 const list = async(req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await model.list(req)
-    // console.log('xx', data)
+    // console.log('xx', req.query)
     res.status(httpStatus.OK).json(data)
 
   } catch(e) {

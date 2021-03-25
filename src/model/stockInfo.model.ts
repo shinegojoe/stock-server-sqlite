@@ -24,6 +24,18 @@ const get = (req: Request) => {
 const list = async(req: Request) => {
   const p = new Payload()
   p.data = { collectionName: collName }
+  const toIntList = ["year", "mon", "day"]
+  console.log('in', req.query)
+  for(const item of toIntList) {
+    if(req.query[item] !== undefined){
+      const x: any = req.query[item]
+      const y: any = parseInt(x)
+      console.log('y', y)
+      req.query[item] = y
+    }
+  }
+  
+  
   const data = await mongoCRUD.list(req, p)
   return data
 }
