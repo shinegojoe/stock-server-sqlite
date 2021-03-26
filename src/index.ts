@@ -7,21 +7,26 @@ import router from './router/index'
 import errorHandler from './utils/errorHandler'
 // import WSServer from './helper/WSHelper/wsHelper'
 import { SqliteQuery, IQueryResult, MongoQuery} from './helper/DBHelper/IQueryObj'
-
+import { fileLogger } from './helper/loggerHelper'
 
 // scp -r dist root@167.179.80.227:/home/
 // ssh root@167.179.80.227
+// ssh root@167.179.80.227 "supervisorctl stop stock_server \
+// supervisorctl start stock_server"
 
 
 const app = express();
 app.use(express.json())
-
-
 app.use('/api', router)
-
 app.use(errorHandler)
 
-app.listen(3000, () => console.log('http server is running at port 3000.'));
+// console.log(logger)
+
+
+app.listen(3002, () => {
+  fileLogger.info('http server is running at port 3002.');
+
+})
 // // const ws = new WSServer(8080)
 // // ws.start()
 
