@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 import { Request, Response, NextFunction} from 'express'
 import { body } from 'express-validator'
 import { MongoQuery, QueryResult, Payload } from '../helper/DBHelper/IQueryObj'

@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 import { Request} from 'express'
 import { MongoQuery, QueryResult } from '../helper/DBHelper/IQueryObj'
 import MongoHelper from '../helper/DBHelper/mongoHelper'

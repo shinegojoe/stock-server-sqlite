@@ -1,7 +1,7 @@
 import chai, { expect, assert } from 'chai'
 import MongoHelper from '../../src/helper/DBHelper/mongoHelper'
 import { QueryResult, IQueryObj, MongoQuery } from '../../src/helper/DBHelper/IQueryObj'
-require('dotenv').config()
+// require('dotenv').config()
 
 
 describe('mongo test', ()=> {
