@@ -3,7 +3,21 @@ import { assert } from 'chai'
 
 describe('rbac test', ()=> {
   const url: string = 'http://localhost:3002/api/user'
-  let testId: 0
+  let testId = 0
+
+  it('not validition email', async()=> {
+    const data = {
+      name: 'mailWrong',
+      email: 'mailWrong'
+    }
+    const res = await axios({
+      method: 'POST',
+      url,
+      data
+    })
+    // console.log('wrong mail', res.data)
+    assert.isString(res.data.message, 'error msg should be string')
+  })
 
   
   it('add user', async()=> {
@@ -17,7 +31,7 @@ describe('rbac test', ()=> {
       url,
       data
     })
-    console.log('add user', res.data)
+    // console.log('add user', res.data)
     testId = res.data.data.lastInsertRowid
     assert.equal(res.data.data.changes, 1)
   })
@@ -32,9 +46,9 @@ describe('rbac test', ()=> {
       url,
       data
     })
-    console.log('update user', res.data)
+    // console.log('update user', res.data)
     assert.equal(res.data.data.changes, 1)
-
+   
   })
 
   it('delete user', async()=> {
@@ -44,13 +58,9 @@ describe('rbac test', ()=> {
       url,
       data
     })
-    console.log('delete user', res.data)
+    // console.log('delete user', res.data)
     assert.equal(res.data.data.changes, 1)
-
   })
-  
-
-  
 
   it('user list', async()=> {
     const params = {}
@@ -59,9 +69,7 @@ describe('rbac test', ()=> {
       url,
       params
     })
-    console.log('user list', res.data)
+    // console.log('user list', res.data)
     assert.isArray(res.data.data)
   })
-
-
 })
