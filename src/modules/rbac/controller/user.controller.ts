@@ -8,7 +8,7 @@ const add = async(req: Request, res: Response, next: NextFunction) => {
     const data = await model.add(req)
     res.status(httpStatus.OK).json(data)
   } catch(e) {
-    throw e
+    next(e)
   }
 }
 
@@ -17,7 +17,7 @@ const get = async(req: Request, res: Response, next: NextFunction) => {
     const data = await model.get(req)
     res.status(httpStatus.OK).json(data)
   } catch(e) {
-    throw e
+    next(e)
   }
 }
 
@@ -26,7 +26,7 @@ const list = async(req: Request, res: Response, next: NextFunction) => {
     const data = await model.list(req)
     res.status(httpStatus.OK).json(data)
   } catch(e) {
-    throw e
+    next(e)
   }
 }
 
@@ -35,7 +35,7 @@ const update = async(req: Request, res: Response, next: NextFunction) => {
     const data = await model.update(req)
     res.status(httpStatus.OK).json(data)
   } catch(e) {
-    throw e
+    next(e)
   }
 }
 
@@ -44,7 +44,7 @@ const del = async(req: Request, res: Response, next: NextFunction) => {
     const data = await model.del(req)
     res.status(httpStatus.OK).json(data)
   } catch(e) {
-    throw e
+    next(e)
   }
 }
 
