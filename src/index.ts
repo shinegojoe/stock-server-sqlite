@@ -1,3 +1,10 @@
+import path from 'path'
+console.log('env', process.env.NODE_ENV)
+import dotenv from 'dotenv'
+dotenv.config({
+  path: path.resolve(`./${process.env.NODE_ENV}.env`)
+})
+
 import express, {Request, Response, NextFunction} from 'express'
 
 // import dgram from 'dgram'
