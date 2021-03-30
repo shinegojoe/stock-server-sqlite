@@ -1,5 +1,5 @@
 import chai, { expect, assert } from 'chai'
-import userModel from '../../src/modules/rbac/model/user.model'
+import userModel from '../../../src/modules/rbac/model/user.model'
 
 
 describe('rbac test', ()=> {
