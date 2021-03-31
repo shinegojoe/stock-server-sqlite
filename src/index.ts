@@ -24,7 +24,11 @@ import { fileLogger } from './helper/loggerHelper'
 
 const app = express();
 app.use(express.json())
+
+// app.use('/api', router)
 app.use('/api', router)
+
+
 app.use(errorHandler)
 
 // console.log(logger)

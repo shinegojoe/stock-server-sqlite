@@ -17,10 +17,11 @@ describe('test start', ()=> {
   //   require('./apiTest.test/stockInfo.test')
   // })
 
-  describe('model test', ()=> {
-    require('./modelTest.test/rbac.test/user.test')
-  })
+  // describe('model test', ()=> {
+  //   require('./modelTest.test/rbac.test/user.test')
+  // })
   describe('api test', ()=> {
-    require('./apiTest.test/rbac.test/user.test')
+    // require('./apiTest.test/rbac.test/user.test')
+    require('./apiTest.test/rbac.test/role.test')
   })
 })

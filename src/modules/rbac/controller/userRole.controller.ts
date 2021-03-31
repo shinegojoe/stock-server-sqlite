@@ -1,7 +1,6 @@
 import httpStatus from 'http-status'
 import { Request, Response, NextFunction} from 'express'
-import model from '../model/role.model'
-import respLayer from '../../../responseLayer/sqlite.layer'
+import model from '../model/userRole.model'
 
 
 const add = async(req: Request, res: Response, next: NextFunction) => {
@@ -16,8 +15,7 @@ const add = async(req: Request, res: Response, next: NextFunction) => {
 const get = async(req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await model.get(req)
-    const resp = respLayer.get(data, "role")
-    res.status(httpStatus.OK).json(resp)
+    res.status(httpStatus.OK).json(data)
   } catch(e) {
     next(e)
   }
@@ -44,8 +42,7 @@ const update = async(req: Request, res: Response, next: NextFunction) => {
 const del = async(req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await model.del(req)
-    const resp = respLayer.del(data, 'role')
-    res.status(httpStatus.OK).json(resp)
+    res.status(httpStatus.OK).json(data)
   } catch(e) {
     next(e)
   }
