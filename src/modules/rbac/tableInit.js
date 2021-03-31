@@ -24,7 +24,7 @@ const createRole = (db) => {
   // );`
   const sql = `CREATE TABLE role (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  
-    name TEXT NOT NULL
+    name TEXT NOT NULL UNIQUE
   );`
 
   const stmt = db.prepare(sql)
@@ -35,7 +35,7 @@ const createRole = (db) => {
 const createAuth = (db) => {
   const sql = `CREATE TABLE auth (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  
-    name TEXT NOT NULL
+    name TEXT NOT NULL UNIQUE
   );`
 
   const stmt = db.prepare(sql)
