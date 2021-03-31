@@ -9,5 +9,6 @@ router.use('/stockInfo', stockInfoRouter)
 router.use('/stockList', stockListRouter)
 router.use('/', rbacRouter)
 
+
 export default router
 

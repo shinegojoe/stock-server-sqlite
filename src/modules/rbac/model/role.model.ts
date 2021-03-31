@@ -1,52 +1,17 @@
-import { Request } from 'express'
 import SqlLiteHelper from '../../../helper/DBHelper/sqlliteHelper'
-import { SqliteQuery } from '../../../helper/DBHelper/IQueryObj'
+import { BaseSqliteModel, ISqlConfig } from '../../../model/base.model'
 
 const dbPath: any = process.env['SQLITE_PATH']
 const sqliteHelper = new SqlLiteHelper(dbPath)
 
-const add = async(req: Request) => {
-  
-  const q = new SqliteQuery()
-  q.sql = 'INSERT or IGNORE INTO role(name) VALUES ($name)'
-  q.insertData = req.body
-  const data = await sqliteHelper.insertOne(q)
-  return data
+const sqlConfig: ISqlConfig = {
+  add: 'INSERT or IGNORE INTO role(name) VALUES ($name)',
+  get: 'SELECT * from role WHERE id = $id',
+  list: 'SELECT * from role',
+  update: 'UPDATE role SET name = $name WHERE id = $id',
+  del: 'DELETE from role WHERE id = $id',
+  tableName: 'role'
 }
+const model = new BaseSqliteModel(sqliteHelper, sqlConfig)
 
-const get = async(req: Request) => {
-  const q = new SqliteQuery()
-  q.sql = 'SELECT * from role WHERE id = $id'
-  q.query = req.params
-  // q.query.id = parseInt(q.query.id)
-  const data = await sqliteHelper.findOne(q)
-  return data
-}
-
-const update = async(req: Request) => {
-  const q = new SqliteQuery()
-  q.sql = 'UPDATE role SET name = $name WHERE id = $id'
-  q.query = req.body
-  q.tabName = 'role'
-  const data = await sqliteHelper.updateOne(q)
-  return data
-}
-
-const list = async(req: Request) => {
-  const q = new SqliteQuery()
-  q.sql = 'SELECT * from role'
-  q.query = req.query
-  const data = await sqliteHelper.findMany(q)
-  return data
-}
-
-const del = async(req: Request) => {
-  const q = new SqliteQuery()
-  q.sql = 'DELETE from role WHERE id = $id'
-  q.query = req.params
-  q.tabName = 'role'
-  const data = await sqliteHelper.deleteOne(q)
-  return data
-}
-
-export default { add, get, list, update, del }
+export default model
