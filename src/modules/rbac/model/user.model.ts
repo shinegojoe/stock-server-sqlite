@@ -19,7 +19,7 @@ const add = async(req: Request) => {
 const get = async(req: Request) => {
   const q = new SqliteQuery()
   q.sql = 'SELECT * from user WHERE id = $id'
-  q.query = req.query
+  q.query = req.params
   const data = await sqliteHelper.findOne(q)
   return data
 }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { assert } from 'chai'
 
-describe('rbac test', ()=> {
+describe('rbac user test', ()=> {
   const url: string = 'http://localhost:3002/api/user'
   let testId = 0
 
@@ -34,6 +34,16 @@ describe('rbac test', ()=> {
     // console.log('add user', res.data)
     testId = res.data.data.lastInsertRowid
     assert.equal(res.data.data.changes, 1)
+  })
+
+  it('get user', async()=> {
+    const getUrl = `${url}/${testId}`
+    const res = await axios({
+      method: 'GET',
+      url: getUrl
+    })
+    // console.log('get user', res.data)
+    assert.equal(res.data.data.id, testId)
   })
 
   it('update user', async()=> {
