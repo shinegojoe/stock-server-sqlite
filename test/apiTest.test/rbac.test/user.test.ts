@@ -16,7 +16,7 @@ describe('rbac user test', ()=> {
       data
     })
     // console.log('wrong mail', res.data)
-    assert.isString(res.data.message, 'error msg should be string')
+    assert.isString(res.data.data.message, 'error msg should be string')
   })
 
   
