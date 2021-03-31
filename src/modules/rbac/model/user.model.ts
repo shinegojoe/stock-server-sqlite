@@ -44,7 +44,7 @@ const list = async(req: Request) => {
 const del = async(req: Request) => {
   const q = new SqliteQuery()
   q.sql = 'DELETE from user WHERE id = $id'
-  q.query = req.body
+  q.query = req.params
   q.tabName = 'user'
   const data = await sqliteHelper.deleteOne(q)
   return data

@@ -62,11 +62,9 @@ describe('rbac user test', ()=> {
   })
 
   it('delete user', async()=> {
-    const data = { id: testId }
     const res = await axios({
       method: 'DELETE',
-      url,
-      data
+      url: `${url}/${testId}`
     })
     // console.log('delete user', res.data)
     assert.equal(res.data.data.changes, 1)
