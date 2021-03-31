@@ -41,8 +41,10 @@ export class MgoPayload {
 
 export class QueryResult implements IQueryResult {
   data: any
+  status: string = 'ok'
   constructor(res: any) {
     this.data = res
+    
   }
   // public get data() {
   //   return this._data
