@@ -1,54 +1,34 @@
-import httpStatus from 'http-status'
-import { Request, Response, NextFunction} from 'express'
+import SqliteLayer from '../../../responseLayer/sqlite.layer'
 import model from '../model/userRole.model'
-import respLayer from '../../../responseLayer/sqlite.layer'
+import { BaseController } from '../../../controller/base.controller'
+import { BaseSqliteModel, IBaseModel } from '../../../model/base.model'
+import { IQueryResult, QueryResult } from '../../../helper/DBHelper/IQueryObj'
 
 
-const add = async(req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await model.add(req)
-    res.status(httpStatus.OK).json(data)
-  } catch(e) {
-    next(e)
+class UserRoleLayer extends SqliteLayer {
+  constructor(name: string) {
+    super(name)
+  }
+  add(data: IQueryResult) {
+    console.log('data', data)
+    if(data.data.tag !== undefined) {
+      const queryRes = new QueryResult({
+        message: `the ${this.name} is exist`
+      })
+      return queryRes
+    }
+    return data
   }
 }
 
-const get = async(req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await model.get(req)
-    const resp = respLayer.get(data, 'userRole')
-    res.status(httpStatus.OK).json(resp)
-  } catch(e) {
-    next(e)
+class UserRoleController extends BaseController {
+  constructor(model: IBaseModel, respLayer: SqliteLayer) {
+    super(model, respLayer)
   }
 }
 
-const list = async(req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await model.list(req)
-    res.status(httpStatus.OK).json(data)
-  } catch(e) {
-    next(e)
-  }
-}
+const respLayer = new UserRoleLayer('userRole')
 
-const update = async(req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await model.update(req)
-    res.status(httpStatus.OK).json(data)
-  } catch(e) {
-    next(e)
-  }
-}
+const userRoleController = new UserRoleController(model, respLayer)
 
-const del = async(req: Request, res: Response, next: NextFunction) => {
-  try {
-    const data = await model.del(req)
-    const resp = respLayer.del(data, 'userRole')
-    res.status(httpStatus.OK).json(resp)
-  } catch(e) {
-    next(e)
-  }
-}
-
-export default { add, get, list, update, del }
+export default userRoleController

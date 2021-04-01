@@ -24,6 +24,7 @@ describe('test start', ()=> {
     // require('./apiTest.test/rbac.test/user.test')
     // require('./apiTest.test/rbac.test/role.test')
     // require('./apiTest.test/rbac.test/auth.test')
-    require('./apiTest.test/rbac.test/roleAuth.test')
+    // require('./apiTest.test/rbac.test/roleAuth.test')
+    require('./apiTest.test/rbac.test/userRole.test')
   })
 })

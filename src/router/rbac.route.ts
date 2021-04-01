@@ -3,6 +3,7 @@ import userController from '../modules/rbac/controller/user.controller'
 import roleController from '../modules/rbac/controller/role.controller'
 import authController from '../modules/rbac/controller/auth.controller'
 import roleAuthController from '../modules/rbac/controller/roleAuth.controller'
+import userRoleController from '../modules/rbac/controller/userRole.controller'
 import validation from '../modules/rbac/validation'
 
 const router = express.Router()
@@ -99,6 +100,26 @@ router.put(roleAuthString, (req, res, next)=> {
 
 router.delete(`${roleAuthString}/:id`, (req, res, next)=> {
   roleAuthController.del(req, res, next)
+})
+
+/* userRole router ................................. */
+const userRoleString: string = '/userRole'
+router.post(userRoleString, (req, res, next)=> {
+  userRoleController.add(req, res, next)
+})
+router.get(userRoleString, (req, res, next)=> {
+  userRoleController.list(req, res, next)
+})
+router.get(`${userRoleString}/:id`, (req, res, next)=> {
+  userRoleController.get(req, res, next)
+})
+
+router.put(userRoleString, (req, res, next)=> {
+  userRoleController.update(req, res, next)
+})
+
+router.delete(`${userRoleString}/:id`, (req, res, next)=> {
+  userRoleController.del(req, res, next)
 })
 
 
