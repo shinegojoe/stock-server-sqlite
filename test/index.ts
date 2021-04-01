@@ -23,5 +23,6 @@ describe('test start', ()=> {
   describe('api test', ()=> {
     require('./apiTest.test/rbac.test/user.test')
     require('./apiTest.test/rbac.test/role.test')
+    require('./apiTest.test/rbac.test/auth.test')
   })
 })

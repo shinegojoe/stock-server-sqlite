@@ -12,6 +12,7 @@ router.get('/xxx/:name', (req, res, next)=>{
     res.json({})
   })
 
+/* user router ................................. */
 const userSting: string = '/user'
 // router.post(userSting, validation.addUser, userController.add)
 // router.get(`${userSting}/:id`, userController.get)
@@ -37,7 +38,7 @@ router.delete(`${userSting}/:id`, (req, res, next)=> {
 })
 
 
-
+/* role router ................................. */
 const roleString: string = '/role'
 router.post(roleString, (req, res, next)=> {
   roleController.add(req, res, next)
@@ -58,7 +59,7 @@ router.delete(`${roleString}/:id`, (req, res, next)=> {
 })
 
 
-
+/* auth router ................................. */
 const authString: string = '/auth'
 router.post(authString, (req, res, next)=> {
   authController.add(req, res, next)
@@ -78,10 +79,5 @@ router.delete(`${authString}/:id`, (req, res, next)=> {
   authController.del(req, res, next)
 })
 
-
-// router.route('/:id')
-//   .get()
-//   .put()
-//   .delete()
 
 export default router
