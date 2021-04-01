@@ -70,4 +70,8 @@ describe('role api test', ()=> {
     assert.equal(res2.data.data.message, 'no role find')
 
   })
+
+  // it('the role is in the roleAuth table, can not delete'), async()=> {
+    
+  // }
 })
