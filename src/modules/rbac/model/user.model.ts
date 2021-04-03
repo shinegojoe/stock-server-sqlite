@@ -5,7 +5,7 @@ const dbPath: any = process.env['SQLITE_PATH']
 const sqliteHelper = new SqlLiteHelper(dbPath)
 
 const sqlConfig: ISqlConfig = {
-  add: 'INSERT or IGNORE INTO user(name,email) VALUES ($name,$email)',
+  add: 'INSERT or IGNORE INTO user(name,email,password) VALUES ($name,$email,$password)',
   get: 'SELECT * from user WHERE id = $id',
   list: 'SELECT * from user',
   update: 'UPDATE user SET name = $name WHERE id = $id',

@@ -11,7 +11,8 @@ const createUser = (db) => {
   const sql = `CREATE TABLE user (
       id INTEGER PRIMARY KEY AUTOINCREMENT,  
       name TEXT NOT NULL,
-      email TEXT NOT NULL UNIQUE 
+      email TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL
   );`
   const stmt = db.prepare(sql)
   const res = stmt.run()
