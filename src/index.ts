@@ -15,6 +15,7 @@ import errorHandler from './utils/errorHandler'
 // import WSServer from './helper/WSHelper/wsHelper'
 import { SqliteQuery, IQueryResult, MongoQuery} from './helper/DBHelper/IQueryObj'
 import { fileLogger } from './helper/loggerHelper'
+var cors = require('cors')
 
 // scp -r dist root@167.179.80.227:/home/
 // ssh root@167.179.80.227
@@ -23,6 +24,7 @@ import { fileLogger } from './helper/loggerHelper'
 
 
 const app = express();
+app.use(cors())
 app.use(express.json())
 
 // app.use('/api', router)
