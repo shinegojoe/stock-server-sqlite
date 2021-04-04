@@ -73,9 +73,9 @@ const createRoleAuth = (db) => {
   console.log('role-auth table', res)
 }
 
-const main = () => {
-  const testDB = '../../../testDB.db'
-  const db = dbInit(testDB)
+const main = (dbPath) => {
+  // const testDB = '../../../testDB.db'
+  const db = dbInit(dbPath)
   const begin = db.prepare('BEGIN')
   const commit = db.prepare('COMMIT')
   const rollback = db.prepare('ROLLBACK')
@@ -101,4 +101,4 @@ const main = () => {
   
 }
 
-main()
+module.exports = main
