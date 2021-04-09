@@ -15,6 +15,7 @@ import errorHandler from './utils/errorHandler'
 // import WSServer from './helper/WSHelper/wsHelper'
 import { SqliteQuery, IQueryResult, MongoQuery} from './helper/DBHelper/IQueryObj'
 import { fileLogger } from './helper/loggerHelper'
+
 var cors = require('cors')
 
 // scp -r dist root@167.179.80.227:/home/
@@ -23,14 +24,12 @@ var cors = require('cors')
 // supervisorctl start stock_server"
 
 
-const app = express();
+const app = express()
+
 app.use(cors())
+// app.use(formData.parse(options))
 app.use(express.json())
-
-// app.use('/api', router)
 app.use('/api', router)
-
-
 app.use(errorHandler)
 
 // console.log(logger)

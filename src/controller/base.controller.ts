@@ -9,7 +9,9 @@ interface IBaseController {
   model: IBaseModel
   add(req: Request, res: Response, next: NextFunction): void
   list(req: Request, res: Response, next: NextFunction): void
-
+  get(req: Request, res: Response, next: NextFunction): void
+  update(req: Request, res: Response, next: NextFunction): void
+  del(req: Request, res: Response, next: NextFunction): void
 }
 
 class BaseController implements IBaseController {
