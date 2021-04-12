@@ -15,15 +15,33 @@ const createItem = (db) => {
       intro TEXT NOT NULL,
       imgUrl TEXT NOT NULL,
       price INTEGER NOT NULL,
+      isShop INTEGER NOT NULL,
       FOREIGN KEY("uid") REFERENCES "user"("id")
   );`
   const stmt = db.prepare(sql)
   const res = stmt.run()
   console.log('item table', res)
 }
+
+const createLogoInfo = (db) => {
+  const sql = `CREATE TABLE logoInfo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    itemid INTEGER NOT NULL,
+    x INTEGER NOT NULL,
+    y INTEGER NOT NULL,
+    w INTEGER NOT NULL,
+    h INTEGER NOT NULL,
+    FOREIGN KEY("itemid") REFERENCES "item"("id")
+  );`
+  const stmt = db.prepare(sql)
+  const res = stmt.run()
+  console.log('logoInfo table', res)
+}
+
 const main = (dbPath) => {
   // const testDB = '../../../testDB.db'
   const db = dbInit(dbPath)
-  createItem(db)
+  // createItem(db)
+  createLogoInfo(db)
 }
 module.exports = main
