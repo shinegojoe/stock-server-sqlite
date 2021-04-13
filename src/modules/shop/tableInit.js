@@ -12,10 +12,10 @@ const createItem = (db) => {
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
       uid INTEGER NOT NULL,
       title TEXT NOT NULL,
-      intro TEXT NOT NULL,
+      intro TEXT NOT NULL DEFAULT '',
       imgUrl TEXT NOT NULL,
-      price INTEGER NOT NULL,
-      isShop INTEGER NOT NULL,
+      price INTEGER NOT NULL DEFAULT 0,
+      isShopOn INTEGER NOT NULL DEFAULT 0,
       FOREIGN KEY("uid") REFERENCES "user"("id")
   );`
   const stmt = db.prepare(sql)
@@ -31,6 +31,8 @@ const createLogoInfo = (db) => {
     y INTEGER NOT NULL,
     w INTEGER NOT NULL,
     h INTEGER NOT NULL,
+    ratio REAL NOT NULL,
+    name TEXT NOT NULL,
     FOREIGN KEY("itemid") REFERENCES "item"("id")
   );`
   const stmt = db.prepare(sql)
@@ -41,7 +43,7 @@ const createLogoInfo = (db) => {
 const main = (dbPath) => {
   // const testDB = '../../../testDB.db'
   const db = dbInit(dbPath)
-  // createItem(db)
+  createItem(db)
   createLogoInfo(db)
 }
 module.exports = main
