@@ -1,6 +1,6 @@
 import express from 'express'
-import { PROXY_AUTHENTICATION_REQUIRED } from 'http-status'
 import itemController from '../modules/shop/controller/item.controller'
+import logoInfoController from '../modules/shop/controller/logoInfo.controller'
 
 const router = express.Router()
 
@@ -27,6 +27,13 @@ router.delete(`${itemString}/:id`, (req, res, next)=> {
 
 router.patch(`${itemString}/isShopOn`, (req, res, next)=> {
   itemController.isShopOn(req, res, next)
+})
+
+
+const logoInfoString = '/logoInfo'
+
+router.get(`${logoInfoString}`, (req, res, next)=> {
+  logoInfoController.getLogoList(req, res, next)
 })
 
 
