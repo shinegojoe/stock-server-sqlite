@@ -2,8 +2,9 @@ import fs from 'fs'
 import { Request } from 'express'
 import SqliteHelper from '../../../helper/DBHelper/sqlliteHelper'
 import { RunResult } from 'sqlite3'
-import { ILogoInfoBase, IItemDB, IItemBase } from '../../../IAPI/Ishop'
-
+import { ILogoInfoBase, IItemDB } from '../../../IAPI/Ishop'
+import { SqliteQuery, QueryResult } from '../../../helper/DBHelper/IQueryObj'
+import { saveBase64 } from '../../../utils/imgHandler'
 
 const dbPath: any = process.env['SQLITE_PATH']
 const uploadFolder = process.env['UPLOAD_FOLDER']
@@ -12,6 +13,15 @@ const sqliteHelper = new SqliteHelper(dbPath)
 
 class LogoInfoModel {
 
+  async getLogoList(req: Request) {
+    const q = new SqliteQuery()
+    q.query = req.query
+    q.sql = 'SELECT * from logoInfo WHERE itemId = $itemId'
+    console.log(q.query)
+    const data = await sqliteHelper.findMany(q)
+    return data
+  }
+
   runCmd(db: any, sql: string, item: any) {
     const stmt = db.prepare(sql)
     const res = stmt.run(item)
@@ -19,15 +29,8 @@ class LogoInfoModel {
   }
 
   saveImage(item: ILogoInfoBase): Promise<string> {
-    const base64Image = item.imgData.split(';base64,').pop() as string
-    const p = new Promise<string>((resolve, reject)=> {
-      const imgPath = `${uploadFolder}/${item.itemId}_${item.name}`
-      fs.writeFile(imgPath, base64Image, {encoding: 'base64'}, function(err) {
-        // console.log('File created')
-        resolve(imgPath)
-      })
-    })
-    return p
+    const itemId: number = item.id as number
+    return saveBase64(item.imgData, itemId, item.name)
   }
 
   async updateLogo(req: Request) {

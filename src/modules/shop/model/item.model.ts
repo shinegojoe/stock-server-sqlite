@@ -5,6 +5,7 @@ import SqlLiteHelper from '../../../helper/DBHelper/sqlliteHelper'
 import { IItemBase } from '../../../IAPI/Ishop'
 import { Database } from 'sqlite3'
 import logoInfoModel from '../model/logoInfo.model'
+import { saveBase64 } from '../../../utils/imgHandler'
 
 const dbPath: any = process.env['SQLITE_PATH']
 const sqliteHelper = new SqlLiteHelper(dbPath)
@@ -37,6 +38,9 @@ class ItemModel extends BaseSqliteModel {
     console.log('update')
     const item: IItemBase = req.body.item
     // console.log('item', item)
+    const itemId = item.id as number
+    const imgName = await saveBase64(item.imgData,itemId, 'cover.png')
+    item.imgUrl = imgName
     const db: Database = sqliteHelper.connect()
     const updateItemSql = 'UPDATE item SET title = $title, intro = $intro, \
     imgUrl = $imgUrl, price = $price WHERE id = $id'
