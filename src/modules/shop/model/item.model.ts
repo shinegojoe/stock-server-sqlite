@@ -49,6 +49,7 @@ class ItemModel extends BaseSqliteModel {
     // console.log('updateItemRes', updateItemRes)
     logoInfoModel.updateLogo(req)
     const res = new QueryResult({res: 'success'})
+    db.close()
     return res
   }
 
@@ -81,7 +82,17 @@ class ItemModel extends BaseSqliteModel {
     const res = new QueryResult({res: 'success'})
     return res
 
+  }
 
+  async shopItem(req: Request) {
+    const q = new SqliteQuery()
+    q.sql = 'SELECT * from item WHERE isShopOn = $isShopOn'
+    q.query = {
+      isShopOn: 1
+    }
+    const data = await sqliteHelper.findMany(q)
+    const res = new QueryResult(data)
+    return res
   }
 }
 

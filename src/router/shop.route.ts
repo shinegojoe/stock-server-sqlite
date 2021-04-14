@@ -4,6 +4,8 @@ import logoInfoController from '../modules/shop/controller/logoInfo.controller'
 
 const router = express.Router()
 
+/* item..............*/
+
 const itemString = '/item'
 router.post(itemString, (req, res, next)=> {
   itemController.add(req, res, next)
@@ -30,6 +32,14 @@ router.patch(`${itemString}/isShopOn`, (req, res, next)=> {
 })
 
 
+const shopItemString = '/shopItem'
+router.get(shopItemString, (req, res, next)=> {
+  itemController.shopItem(req, res, next)
+})
+
+
+
+/* logoInfo..............*/
 const logoInfoString = '/logoInfo'
 
 router.get(`${logoInfoString}`, (req, res, next)=> {

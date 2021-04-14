@@ -31,6 +31,15 @@ class ItemController extends BaseController {
 
   }
 
+  async shopItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await itemModel.shopItem(req)
+      res.status(httpStatus.OK).json(data)
+    } catch (e) {
+      next(e)
+    }
+  }
+
 
 }
 
