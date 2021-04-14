@@ -51,6 +51,38 @@ class ItemModel extends BaseSqliteModel {
     const res = new QueryResult({res: 'success'})
     return res
   }
+
+  async del(req: Request) {
+    // delete all logo where itemId = id
+    // delete item
+    const id: number = parseInt(req.params.id)
+    const db: any = sqliteHelper.connect()
+    const begin = db.prepare('BEGIN')
+    const commit = db.prepare('COMMIT')
+    const rollback = db.prepare('ROLLBACK')
+    begin.run()
+    try {
+      const delLogoListSql = 'DELETE from logoInfo WHERE itemId = $itemId'
+      const stmt = db.prepare(delLogoListSql)
+      stmt.run({itemId: id})
+      const delItemSql = 'DELETE from item WHERE id = $id'
+      const stmt2 = db.prepare(delItemSql)
+      stmt2.run({id: id})
+      commit.run()
+
+    } catch(e) {
+      console.log(e)
+    } finally {
+      if(db.inTransaction) {
+        rollback.run()
+      }
+      db.close()
+    }
+    const res = new QueryResult({res: 'success'})
+    return res
+
+
+  }
 }
 
 const model = new ItemModel(sqliteHelper, sqlConfig)
