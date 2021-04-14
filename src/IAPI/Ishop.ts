@@ -1,18 +1,21 @@
 interface IItemBase {
+  id?: number
   uid: number
   title: string
   intro: string
   imgUrl: string
   price: number
   isShopOn: boolean
+  imgData: string
 }
 
-interface IItemDB extends IItemBase {
-  id: number
-}
+// interface IItemDB extends IItemBase {
+//   id: number
+// }
 
 
 interface ILogoInfoBase {
+  id?: number
   itemId: number
   x: number
   y: number
@@ -24,8 +27,8 @@ interface ILogoInfoBase {
   imgUrl: string
 }
 
-interface ILogoInfoDB extends ILogoInfoBase {
-  id: number
-}
+// interface ILogoInfoDB extends ILogoInfoBase {
+//   id: number
+// }
 
-export type { IItemBase, ILogoInfoBase, IItemDB, ILogoInfoDB }
+export type { IItemBase, ILogoInfoBase, IItemDB }
