@@ -22,4 +22,11 @@ router.get(downloadString, (req, res, next)=> {
   fileUploadController.download(req, res, next)
 })
 
+router.get('/img/:id', (req, res, next)=> {
+  // console.log('p', req.params)
+  // console.log('q', req.query)
+  const path = `${uploadDir}/${req.params.id}`
+  res.download(path)
+})
+
 export default router
