@@ -2,7 +2,7 @@ import fs from 'fs'
 import { Request } from 'express'
 import SqliteHelper from '../../../helper/DBHelper/sqlliteHelper'
 import { RunResult } from 'sqlite3'
-import { ILogoInfoBase, IItemDB } from '../../../IAPI/Ishop'
+import { ILogoInfoBase, IItemBase } from '../../../IAPI/Ishop'
 import { SqliteQuery, QueryResult } from '../../../helper/DBHelper/IQueryObj'
 import { saveBase64 } from '../../../utils/imgHandler'
 
@@ -43,8 +43,8 @@ class LogoInfoModel {
       // console.log(req.body)
       const logoList: ILogoInfoBase [] = req.body.logoList
       
-      const item: IItemDB = req.body.item
-      const itemId: number = item.id
+      const item: IItemBase = req.body.item
+      const itemId: number = item.id as number
       const q1 = 'SELECT * from logoInfo WHERE itemId = $itemId'
       const stmt = db.prepare(q1)
       const logoListRes = stmt.all({itemId})

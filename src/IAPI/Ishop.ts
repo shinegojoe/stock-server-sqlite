@@ -31,4 +31,4 @@ interface ILogoInfoBase {
 //   id: number
 // }
 
-export type { IItemBase, ILogoInfoBase, IItemDB }
+export type { IItemBase, ILogoInfoBase }
