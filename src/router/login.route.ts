@@ -13,4 +13,16 @@ router.post(googleLoginString, (req, res, next)=> {
   googleLoginController.getToken(req, res, next)
 })
 
+router.get('/callback', (req, res, next)=> {
+  console.log(req.query)
+  googleLoginController.getToken(req, res, next)
+
+  // res.send('ok')
+})
+
+router.get('/xxx', (req: any, res, next)=> {
+  console.log(req.session)
+  res.send('qq')
+})
+
 export default router

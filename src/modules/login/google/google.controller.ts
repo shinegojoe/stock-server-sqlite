@@ -21,9 +21,11 @@ class GoogleLoginController {
   async getToken(req: Request, res: Response, next: NextFunction) {
     try {
       const code = await model.getToken(req)
-      res.status(httpStatus.OK).json({
-        token: code
-      })
+      res.redirect('http://localhost:3000')
+
+      // res.status(httpStatus.OK).json({
+      //   token: code
+      // })
 
     } catch(e) {
         next(e)

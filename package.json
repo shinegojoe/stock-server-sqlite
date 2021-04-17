@@ -23,6 +23,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-form-data": "^2.0.16",
+    "express-session": "^1.17.1",
     "express-validator": "^6.10.0",
     "googleapis": "^71.0.0",
     "http-status": "^1.5.0",

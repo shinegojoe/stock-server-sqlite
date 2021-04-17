@@ -17,6 +17,8 @@ import { SqliteQuery, IQueryResult, MongoQuery} from './helper/DBHelper/IQueryOb
 import { fileLogger } from './helper/loggerHelper'
 
 var cors = require('cors')
+var session = require('express-session')
+
 
 // scp -r dist root@167.179.80.227:/home/
 // ssh root@167.179.80.227
@@ -25,6 +27,11 @@ var cors = require('cors')
 
 
 const app = express()
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(cors())
 // app.use(formData.parse(options))
