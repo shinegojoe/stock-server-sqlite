@@ -1,6 +1,7 @@
 import express from 'express'
 import itemController from '../modules/shop/controller/item.controller'
 import logoInfoController from '../modules/shop/controller/logoInfo.controller'
+import styleImgController from '../modules/shop/controller/style_img.controller'
 
 const router = express.Router()
 
@@ -44,6 +45,13 @@ const logoInfoString = '/logoInfo'
 
 router.get(`${logoInfoString}`, (req, res, next)=> {
   logoInfoController.getLogoList(req, res, next)
+})
+
+
+/* style image........... */
+const styleImgString = '/styleImg'
+router.post(`${styleImgString}`, (req, res, next)=> {
+  styleImgController.styleImg(req, res, next)
 })
 
 
