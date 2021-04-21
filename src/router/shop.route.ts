@@ -54,6 +54,10 @@ router.post(`${styleImgString}`, (req, res, next)=> {
   styleImgController.styleImg(req, res, next)
 })
 
+router.get('/styleList', (req, res, next)=> {
+  styleImgController.styleList (req, res, next)
+})
+
 
 
 export default router
