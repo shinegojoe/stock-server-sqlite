@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import axios from 'axios'
+import { IStyleImg } from 'IAPI/IImgStyle'
 
 
 const styleImgUrl: any = process.env['STYLE_IMAGE_URL']
@@ -16,7 +17,7 @@ class StyleImgModel {
     const url = `${styleImgUrl}/modelPreview`
     const res = await axios.get(url)
     // todo parse url add host to styleImg/mosaic.jpg"
-    const mapList = res.data.mapList
+    const mapList: IStyleImg[] = res.data.mapList
     for(let item of mapList) {
       const newPath = `${styleImgUrl}/${item.path}`
       item.path = newPath

@@ -17,9 +17,7 @@ class StyleImgController {
   async styleList(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await model.styleList(req)
-      res.status(httpStatus.OK).json({
-        mapList: data
-      })
+      res.status(httpStatus.OK).json(data)
     } catch(e) {
       next(e)
     }
