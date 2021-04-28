@@ -21,8 +21,9 @@ class SqlLiteHelper implements IDBHelper {
       db = this.connect()
       const stmt = db.prepare(query.sql)
       const res = stmt.run(query.insertData)
-      const queryRes = new QueryResult(res)
-      return queryRes
+      // const queryRes = new QueryResult(res)
+      // return queryRes
+      return res
     } catch (e) {
       throw e
     } finally {
@@ -46,8 +47,9 @@ class SqlLiteHelper implements IDBHelper {
         }
       })
       const res = run(query.insertData)
-      const queryRes = new QueryResult(res)
-      return queryRes
+      // const queryRes = new QueryResult(res)
+      // return queryRes
+      return res
     } catch (e) {
       throw e
     } finally {
@@ -61,8 +63,9 @@ class SqlLiteHelper implements IDBHelper {
       db = this.connect()
       const stmt = db.prepare(query.sql);
       const res = stmt.get(query.query)
-      const queryRes = new QueryResult(res)
-      return queryRes
+      // const queryRes = new QueryResult(res)
+      // return queryRes
+      return res
 
     } catch (e) {
       throw e
@@ -78,8 +81,9 @@ class SqlLiteHelper implements IDBHelper {
       db = this.connect()
       const stmt = db.prepare(query.sql)
       const res = stmt.all(query.query)
-      const queryRes = new QueryResult(res)
-      return queryRes
+      // const queryRes = new QueryResult(res)
+      // return queryRes
+      return res
 
     } catch (e) {
       throw e
@@ -101,8 +105,9 @@ class SqlLiteHelper implements IDBHelper {
         } else {
           const stmtDel = db.prepare(delSql)
           const resDel = stmtDel.run({id: res.id})
-          const queryRes = new QueryResult(resDel)
-          return queryRes
+          // const queryRes = new QueryResult(resDel)
+          // return queryRes
+          return resDel
         }
   
       } catch(e) {
@@ -118,7 +123,7 @@ class SqlLiteHelper implements IDBHelper {
     return this.runSql(query)
   }
 
-  async updateOne(query: IQueryObj): Promise<IQueryResult> {
+  async updateOne(query: IQueryObj): Promise<any> {
       let db
       try {
         db = this.connect()
@@ -136,12 +141,14 @@ class SqlLiteHelper implements IDBHelper {
         const stmt = db.prepare(selectSql)
         const selectRes = stmt.get(query.query)
         if(selectRes === undefined) {
-          return new QueryResult({})
+          // return new QueryResult({})
+          return {}
         } else {
           const updateSql = `${y} WHERE id = ${selectRes.id}`
           const updateStmt = db.prepare(updateSql)
           const updateRes = updateStmt.run(query.query)
-          return new QueryResult(updateRes)
+          // return new QueryResult(updateRes)
+          return updateRes
       }
   
       } catch(e) {
@@ -162,7 +169,8 @@ class SqlLiteHelper implements IDBHelper {
       db = this.connect()
       const stmt = db.prepare(query.sql)
       const res = stmt.run(query.query)
-      return new QueryResult(res)
+      // return new QueryResult(res)
+      return res
     } catch(e) {
       throw e
     } finally {

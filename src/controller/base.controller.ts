@@ -33,7 +33,8 @@ class BaseController implements IBaseController {
   }
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const resp = await this.model.list(req)
+      const data = await this.model.list(req)
+      const resp = this.respLayer.list(data)
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
       next(e)
@@ -53,8 +54,12 @@ class BaseController implements IBaseController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.model.update(req)
-      res.status(httpStatus.OK).json(data)
+      const resp = this.respLayer.update(data)
+      console.log('item controller', data)
+      res.status(httpStatus.OK).json(resp)
     } catch(e) {
+      console.log('item controller eee', e)
+
       next(e)
     }
   }
@@ -63,6 +68,7 @@ class BaseController implements IBaseController {
     try {
       const data = await this.model.del(req)
       const resp = this.respLayer.del(data)
+
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
       next(e)

@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { Request } from 'express'
+import { NextFunction, Request } from 'express'
 import SqliteHelper from '../../../helper/DBHelper/sqlliteHelper'
 import { RunResult } from 'sqlite3'
 import { ILogoInfoBase, IItemBase } from '../../../IAPI/Ishop'
@@ -91,18 +91,20 @@ class LogoInfoModel {
           this.runCmd(db, removeSql, res)
         }
       }
-
-      commit.run()
+      const res = commit.run()
+      res.changes = 1
+      return res
 
     } catch(e) {
-      console.log('e', e)
+      console.log('e logo', e)
+      throw e
 
     } finally {
       if(db.inTransaction) {
         rollback.run()
       }
       db.close()
-      return true
+      // return true
     }
 
   }

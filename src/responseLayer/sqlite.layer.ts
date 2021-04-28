@@ -1,44 +1,58 @@
 import { IQueryResult, QueryResult } from '../helper/DBHelper/IQueryObj'
 import { IBaseLayer } from './Ibase.layer'
+import ServerResp from './serverResp'
 
 class SqliteLayer implements IBaseLayer {
   name: string
   constructor(name: string) {
     this.name = name
   }
-  add(data: IQueryResult) {
-    if(data.data.changes ===0) {
-      const queryRes = new QueryResult({
+  add(data: any) {
+    if(data.changes ===0) {
+      // const queryRes = new QueryResult({
+      //   message: `the ${this.name} is exist`
+      // })
+      // return queryRes
+      const msg =  {
         message: `the ${this.name} is exist`
-      })
-      return queryRes
+      }
+      return new ServerResp(msg, 'error')
+
     }
-    return data
+    return new ServerResp(data, 'ok')
   }
   get(data: IQueryResult) {
-    if(data.data === undefined) {
-      const queryRes = new QueryResult({
+    if(data === undefined) {
+      // const queryRes = new QueryResult({
+      //   message: `no ${this.name} find`
+      // })
+      // return queryRes
+      const msg = {
         message: `no ${this.name} find`
-      })
-      return queryRes
+      }
+      return new ServerResp(msg, 'error')
     }
-    return data
+    return new ServerResp(data)
   }
   list(data: IQueryResult) {
-    return data
+    return new ServerResp(data)
   }
-  update(data: IQueryResult) {
-    return data
+  update(data: any) {
+    console.log(data)
+    return new ServerResp(data)
   }
 
-  del(data: IQueryResult) {
-    if(Object.entries(data.data).length === 0) {
-      const queryRes = new QueryResult({
+  del(data: any) {
+    if(data.changes === 0) {
+      // const queryRes = new QueryResult({
+      //   message: `no ${this.name} find`
+      // })
+      const msg = {
         message: `no ${this.name} find`
-      })
-      return queryRes
+      }
+      return new ServerResp(msg, 'error')
     }
-    return data
+    return new ServerResp(data)
   }
 }
 

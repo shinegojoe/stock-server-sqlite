@@ -3,6 +3,7 @@ import model from '../model/roleAuth.model'
 import { BaseController } from '../../../controller/base.controller'
 import { BaseSqliteModel } from '../../../model/base.model'
 import { IQueryResult, QueryResult } from '../../../helper/DBHelper/IQueryObj'
+import ServerResp from '../../../responseLayer/serverResp'
 
 
 class RoleAuthLayer extends SqliteLayer {
@@ -12,12 +13,16 @@ class RoleAuthLayer extends SqliteLayer {
   add(data: IQueryResult) {
     console.log('data', data)
     if(data.data.tag !== undefined) {
-      const queryRes = new QueryResult({
+      // const queryRes = new QueryResult({
+      //   message: `the ${this.name} is exist`
+      // })
+      // return queryRes
+      const msg = {
         message: `the ${this.name} is exist`
-      })
-      return queryRes
+      }
+      return new ServerResp(msg, 'error')
     }
-    return data
+    return new ServerResp(data)
   }
 }
 const respLayer = new RoleAuthLayer('roleAuth')

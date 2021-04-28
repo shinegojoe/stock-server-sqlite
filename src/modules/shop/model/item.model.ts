@@ -47,8 +47,8 @@ class ItemModel extends BaseSqliteModel {
     const stmt = db.prepare(updateItemSql)
     const _updateItemRes = stmt.run(item)
     // console.log('updateItemRes', updateItemRes)
-    logoInfoModel.updateLogo(req)
-    const res = new QueryResult({res: 'success'})
+    const res = await logoInfoModel.updateLogo(req)
+    // const res = new QueryResult({res: 'success'})
     db.close()
     return res
   }
@@ -68,19 +68,19 @@ class ItemModel extends BaseSqliteModel {
       stmt.run({itemId: id})
       const delItemSql = 'DELETE from item WHERE id = $id'
       const stmt2 = db.prepare(delItemSql)
-      stmt2.run({id: id})
+      const res = stmt2.run({id: id})
       commit.run()
+      return res
 
     } catch(e) {
       console.log(e)
+      throw e
     } finally {
       if(db.inTransaction) {
         rollback.run()
       }
       db.close()
     }
-    const res = new QueryResult({res: 'success'})
-    return res
 
   }
 
