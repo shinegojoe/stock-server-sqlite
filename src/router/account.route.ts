@@ -6,18 +6,18 @@ import tokenValidation from '../validation/token.validation'
 const router = express.Router()
 
 
-router.post('/login', (req,res, next)=> {
-  accountController.login(req, res, next)
-})
+// router.post('/login', (req,res, next)=> {
+//   accountController.login(req, res, next)
+// })
 
-router.post('/logout',(req, res, next)=> {
-  tokenValidation(req, res, next)
-  accountController.logout(req, res, next)
-})
+// router.post('/logout',(req, res, next)=> {
+//   tokenValidation(req, res, next)
+//   accountController.logout(req, res, next)
+// })
 
-router.post('/register', (req,res, next)=> {
-  registerController.register(req, res, next)
-})
+// router.post('/register', (req,res, next)=> {
+//   registerController.register(req, res, next)
+// })
 
 
 

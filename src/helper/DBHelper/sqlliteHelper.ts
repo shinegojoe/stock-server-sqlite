@@ -15,7 +15,7 @@ class SqlLiteHelper implements IDBHelper {
     return db
   }
 
-  async insertOne(query: IQueryObj): Promise<IQueryResult> {
+  async insertOne(query: IQueryObj): Promise<any> {
     let db
     try {
       db = this.connect()
@@ -57,7 +57,7 @@ class SqlLiteHelper implements IDBHelper {
     }
   }
 
-  async findOne(query: IQueryObj): Promise<IQueryResult> {
+  async findOne(query: IQueryObj): Promise<any> {
     let db
     try {
       db = this.connect()
@@ -75,7 +75,7 @@ class SqlLiteHelper implements IDBHelper {
     }
   }
 
-  async findMany(query: IQueryObj): Promise<IQueryResult> {
+  async findMany(query: IQueryObj): Promise<any> {
     let db
     try {
       db = this.connect()
@@ -92,7 +92,7 @@ class SqlLiteHelper implements IDBHelper {
     }
   }
 
-  async deleteOne(query: IQueryObj): Promise<IQueryResult> {
+  async deleteOne(query: IQueryObj): Promise<any> {
       let db
       try {
         db = this.connect()
@@ -118,7 +118,7 @@ class SqlLiteHelper implements IDBHelper {
       }
   }
 
-  async deleteMany(query: IQueryObj): Promise<IQueryResult> {
+  async deleteMany(query: IQueryObj): Promise<any> {
 
     return this.runSql(query)
   }
@@ -159,11 +159,11 @@ class SqlLiteHelper implements IDBHelper {
     
   }
 
-  async updateMany(query: IQueryObj): Promise<IQueryResult> {
+  async updateMany(query: IQueryObj): Promise<any> {
     return this.runSql(query)
   }
 
-  async runSql(query: IQueryObj): Promise<IQueryResult> {
+  async runSql(query: IQueryObj): Promise<any> {
     let db
     try {
       db = this.connect()

@@ -1,5 +1,7 @@
 import express from 'express'
-import  googleLoginController from '../modules/login/google/google.controller'
+import googleLoginController from '../modules/login_signin/google/google.controller'
+import emailLoginController from '../modules/login_signin/email/login.controller'
+import { jwtMiddleware } from '../helper/jwtHelper/jwtMiddleware'
 
 const router = express.Router()
 
@@ -20,9 +22,22 @@ router.get('/callback', (req, res, next)=> {
   // res.send('ok')
 })
 
-router.get('/xxx', (req: any, res, next)=> {
-  console.log(req.session)
-  res.send('qq')
+
+
+
+const loginString = '/login'
+router.post(loginString, (req, res, next)=> {
+  emailLoginController.login(req, res, next)
 })
+
+router.get('/loginTest', jwtMiddleware, (req, res, next) => {
+  emailLoginController.test(req, res, next)
+})
+
+
+// router.get('/xxx', (req: any, res, next)=> {
+//   console.log(req.session)
+//   res.send('qq')
+// })
 
 export default router

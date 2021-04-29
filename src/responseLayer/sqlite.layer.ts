@@ -7,6 +7,10 @@ class SqliteLayer implements IBaseLayer {
   constructor(name: string) {
     this.name = name
   }
+
+  defalut(data: any) {
+    return new ServerResp(data)
+  }
   add(data: any) {
     if(data.changes ===0) {
       // const queryRes = new QueryResult({

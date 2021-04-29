@@ -6,6 +6,7 @@ import accoutRouter from './account.route'
 import shopRouter from './shop.route'
 import fileUploadRouter from './fileUpload.route'
 import login from './login.route'
+import signIn from './siginIn.route'
 
 const router = Router()
 
@@ -16,6 +17,7 @@ router.use('/', accoutRouter)
 router.use('/', shopRouter)
 router.use('/', fileUploadRouter)
 router.use('/', login)
+router.use('/', signIn)
 
 
 export default router

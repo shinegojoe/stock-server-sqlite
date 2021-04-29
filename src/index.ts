@@ -5,7 +5,7 @@ dotenv.config({
   path: path.resolve(`./${process.env.NODE_ENV}.env`)
 })
 
-import express, {Request, Response, NextFunction} from 'express'
+import express from 'express'
 
 // import dgram from 'dgram'
 // import NetKeepAlive from 'net-keepalive'
@@ -13,11 +13,10 @@ import express, {Request, Response, NextFunction} from 'express'
 import router from './router/index'
 import errorHandler from './utils/errorHandler'
 // import WSServer from './helper/WSHelper/wsHelper'
-import { SqliteQuery, IQueryResult, MongoQuery} from './helper/DBHelper/IQueryObj'
 import { fileLogger } from './helper/loggerHelper'
 
 var cors = require('cors')
-var session = require('express-session')
+// var session = require('express-session')
 
 
 // scp -r dist root@167.179.80.227:/home/
@@ -27,11 +26,11 @@ var session = require('express-session')
 
 
 const app = express()
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}))
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true
+// }))
 
 app.use(cors())
 // app.use(formData.parse(options))
