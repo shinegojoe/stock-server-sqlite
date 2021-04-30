@@ -32,6 +32,16 @@ class EmailLoginController {
       next(e)
     }
   }
+
+  async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await this.model.logout(req)
+      const resp = this.respLayer.resp(data)
+      res.status(httpStatus.OK).json(resp)
+    } catch(e) {
+      next(e)
+    }
+  }
 }
 
 const controller = new EmailLoginController(model, respLayer)

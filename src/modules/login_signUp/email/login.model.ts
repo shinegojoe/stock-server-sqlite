@@ -57,20 +57,12 @@ class EmailLoginModel {
         jwt
       }
       return data
-
-      // data = res
-      // data = {...res, isValid, jwt}
-      // // data.isValid = isValid
-      // // data.jwt = jwt
-      // delete data.password
-      // // console.log(data)
-      // const xx = verifyJWT(jwt)
-      // console.log('xx', xx)
-      // return data
     }
     throw Error('login failed')
-    // return data.isValid = isValid
-    
+  }
+
+  async logout(req: Request) {
+    return {}
   }
 }
 

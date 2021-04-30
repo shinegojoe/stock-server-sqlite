@@ -10,14 +10,22 @@ const verifyEmail = (email: string, decoded: Payload): void => {
 }
 
 export const jwtMiddleware = async(req: Request, res: Response, next: NextFunction)=> {
-  let token = req.headers.authorization as string
-  token = token.replace('Bearer ', '')
-  // console.log('token', token)
-  const body = req.body as LoginReq
+  
   try {
-    const decoded = verifyJWT(token)
-    console.log('decoded', decoded)
-    verifyEmail(body.email, decoded)
+    let token = req.headers.authorization as string
+    token = token.replace('Bearer ', '')
+    // console.log('token', token)
+
+    if(req.method ==="GET") {
+      const id = req.params.id
+      console.log('id', id)
+    } else {
+      const body = req.body as LoginReq
+      const decoded = verifyJWT(token)
+      console.log('decoded', decoded)
+      verifyEmail(body.email, decoded)
+    }
+   
     next()
   } catch(e) {
     next(e)

@@ -1,7 +1,6 @@
 import express from 'express'
 import googleLoginController from '../modules/login_signUp/google/google.controller'
 import emailLoginController from '../modules/login_signUp/email/login.controller'
-import { jwtMiddleware } from '../helper/jwtHelper/jwtMiddleware'
 
 const router = express.Router()
 

@@ -5,6 +5,7 @@ import authController from '../modules/rbac/controller/auth.controller'
 import roleAuthController from '../modules/rbac/controller/roleAuth.controller'
 import userRoleController from '../modules/rbac/controller/userRole.controller'
 import validation from '../modules/rbac/validation'
+import { jwtMiddleware } from '../helper/jwtHelper/jwtMiddleware'
 
 const router = express.Router()
 
@@ -27,9 +28,11 @@ router.post(userSting, validation.addUser, (req:any, res: any, next: any)=> {
 router.get(userSting, (req, res, next)=> {
   userController.list(req, res, next)
 })
-router.get(`${userSting}/:id`, (req, res, next)=> {
+
+router.get(`${userSting}/:id`, jwtMiddleware, (req, res, next)=> {
   userController.get(req, res, next)
 })
+
 
 router.put(userSting, (req, res, next)=> {
   userController.update(req, res, next)
