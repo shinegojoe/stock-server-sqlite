@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import httpStatus from 'http-status'
-import signInModel from './signIn.model'
+import signInModel from './signup.model'
 import ResponseLayer from '../../../responseLayer/sqlite.layer'
 
 
@@ -11,10 +11,13 @@ class EmailSignInController {
     this.respLayer = respLayer
   }
   async signIn(req: Request, res: Response, next: NextFunction) {
-    const data = await signInModel.signIn(req)
-    const resp = respLayer.add(data)
-    res.status(httpStatus.OK).json(resp)
-    
+    try {
+      const data = await signInModel.signUp(req)
+      const resp = respLayer.add(data)
+      res.status(httpStatus.OK).json(resp)
+    } catch(e) {
+      next(e)
+    }
   }
 }
 

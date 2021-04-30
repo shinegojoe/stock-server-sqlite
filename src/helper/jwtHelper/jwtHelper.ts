@@ -4,11 +4,9 @@ import JWT from 'jsonwebtoken'
 const secret = process.env['SECRET'] as string
 
 export type Payload = {
-  err: boolean
-  email?: string
-  password?: string
-  iat?: number
-  exp?: number
+  email: string
+  iat: number
+  exp: number
 }
 
 
@@ -17,27 +15,14 @@ export const generateJWT = (opt: object) =>{
   return jwt
 }
 
-export const verifyJWT = (jwt: string): Promise<Payload> => {
-  // token expired return error 
-  const p = new Promise<Payload>((resolve, reject)=> {
-    JWT.verify(jwt, secret, (err, decoded: any)=> {
-      if(err) {
-        const payload: Payload = {
-          err: true,
-        }
-        resolve(payload)
-      } else {
 
-        const payload: Payload = {
-          err: false,
-          email: decoded.email,
-          password: decoded.password,
-          iat: decoded.iat,
-          exp: decoded.exp
-        }
-        resolve(payload)
-      }
-    })
-  })
-  return p
+export const verifyJWT = (jwt: string): Payload => {
+  // token expired return error 
+  try {
+    const decoded = JWT.verify(jwt, secret) as Payload
+    return decoded
+  } catch(e) {
+    throw Error('jwt error')
+  }
+    
 }

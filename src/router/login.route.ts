@@ -1,6 +1,6 @@
 import express from 'express'
-import googleLoginController from '../modules/login_signin/google/google.controller'
-import emailLoginController from '../modules/login_signin/email/login.controller'
+import googleLoginController from '../modules/login_signUp/google/google.controller'
+import emailLoginController from '../modules/login_signUp/email/login.controller'
 import { jwtMiddleware } from '../helper/jwtHelper/jwtMiddleware'
 
 const router = express.Router()
@@ -26,13 +26,13 @@ router.get('/callback', (req, res, next)=> {
 
 
 const loginString = '/login'
-router.post(loginString, (req, res, next)=> {
+router.post(loginString, jwtMiddleware, (req, res, next)=> {
   emailLoginController.login(req, res, next)
 })
 
-router.get('/loginTest', jwtMiddleware, (req, res, next) => {
-  emailLoginController.test(req, res, next)
-})
+// router.get('/loginTest', jwtMiddleware, (req, res, next) => {
+//   emailLoginController.test(req, res, next)
+// })
 
 
 // router.get('/xxx', (req: any, res, next)=> {
