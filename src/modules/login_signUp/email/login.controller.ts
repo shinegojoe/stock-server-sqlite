@@ -23,18 +23,14 @@ class EmailLoginController {
   async login(req: Request, res: Response, next: NextFunction) {
     console.log('login')
     try {
-      // const data = await this.model.login(req)
-      const data = {}
+      const data = await this.model.login(req)
+      // const data = {}
       const resp = this.respLayer.resp(data)
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
       console.log('lll err')
       next(e)
     }
-  }
-  async test(req: Request, res: Response, next: NextFunction) {
-    const data = await this.model.loginTest(req)
-    res.status(httpStatus.OK).json({xx: data})
   }
 }
 

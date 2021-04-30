@@ -26,7 +26,7 @@ router.get('/callback', (req, res, next)=> {
 
 
 const loginString = '/login'
-router.post(loginString, jwtMiddleware, (req, res, next)=> {
+router.post(loginString, (req, res, next)=> {
   emailLoginController.login(req, res, next)
 })
 
