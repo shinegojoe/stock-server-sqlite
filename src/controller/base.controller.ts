@@ -2,7 +2,8 @@ import httpStatus from 'http-status'
 import { Request, Response, NextFunction } from 'express'
 import { IBaseModel} from '../model/base.model'
 // import respLayer from '../responseLayer/sqlite.layer'
-import SqliteLayer from '../responseLayer/sqlite.layer'
+import { Add, Get, List, Update, Del } from '../responseLayer/sqlite.layer'
+import { IResp, BaseResp } from '../responseLayer/base.layer'
 
 
 interface IBaseController {
@@ -16,15 +17,27 @@ interface IBaseController {
 
 class BaseController implements IBaseController {
   model: IBaseModel
-  respLayer: SqliteLayer
-  constructor(model: IBaseModel, respLayer: SqliteLayer) {
+  respLayer: IResp
+  addLayer: Add
+  getLayer: Get
+  listLayer: List
+  updateLayer: Update
+  delLayer: Del
+  constructor(model: IBaseModel) {
     this.model = model
-    this.respLayer = respLayer
+    this.respLayer = new BaseResp()
+    this.addLayer = new Add()
+    this.getLayer = new Get()
+    this.listLayer = new List()
+    this.updateLayer = new Update()
+    this.delLayer = new Del()
   }
+  
   async add(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.model.add(req)
-      const resp = this.respLayer.add(data)
+      this.respLayer = this.addLayer
+      const resp = this.respLayer.resp(data)
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
       next(e)
@@ -34,7 +47,8 @@ class BaseController implements IBaseController {
   async list(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.model.list(req)
-      const resp = this.respLayer.list(data)
+      this.respLayer = this.listLayer
+      const resp = this.respLayer.resp(data)
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
       next(e)
@@ -44,7 +58,8 @@ class BaseController implements IBaseController {
   async get(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.model.get(req)
-      const resp = this.respLayer.get(data)
+      this.respLayer = this.getLayer
+      const resp = this.respLayer.resp(data)
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
       next(e)
@@ -54,7 +69,8 @@ class BaseController implements IBaseController {
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.model.update(req)
-      const resp = this.respLayer.update(data)
+      this.respLayer = this.updateLayer
+      const resp = this.respLayer.resp(data)
       console.log('item controller', data)
       res.status(httpStatus.OK).json(resp)
     } catch(e) {
@@ -67,7 +83,8 @@ class BaseController implements IBaseController {
   async del(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await this.model.del(req)
-      const resp = this.respLayer.del(data)
+      this.respLayer = this.delLayer
+      const resp = this.respLayer.resp(data)
 
       res.status(httpStatus.OK).json(resp)
     } catch(e) {

@@ -10,4 +10,4 @@ class BaseResp implements IResp {
   }
 }
 
-export { IResp, BaseResp }
+export { IResp, BaseResp, ServerResp }

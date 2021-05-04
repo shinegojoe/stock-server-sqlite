@@ -3,6 +3,11 @@ import { IQueryObj, IQueryResult, QueryResult } from './IQueryObj'
 // var sqlite3 = require('sqlite3').verbose();
 const sqlite3 = require('better-sqlite3');
 
+interface ISqliteResp {
+  changes: number
+  lastInsertRowid: number
+}
+
 class SqlLiteHelper implements IDBHelper {
   dbPath: string
   constructor(dbPath: string) {
@@ -20,7 +25,7 @@ class SqlLiteHelper implements IDBHelper {
     try {
       db = this.connect()
       const stmt = db.prepare(query.sql)
-      const res = stmt.run(query.insertData)
+      const res = stmt.run(query.insertData) as ISqliteResp
       // const queryRes = new QueryResult(res)
       // return queryRes
       return res
@@ -104,7 +109,7 @@ class SqlLiteHelper implements IDBHelper {
           return new QueryResult({})
         } else {
           const stmtDel = db.prepare(delSql)
-          const resDel = stmtDel.run({id: res.id})
+          const resDel = stmtDel.run({id: res.id}) as ISqliteResp
           // const queryRes = new QueryResult(resDel)
           // return queryRes
           return resDel
@@ -146,7 +151,7 @@ class SqlLiteHelper implements IDBHelper {
         } else {
           const updateSql = `${y} WHERE id = ${selectRes.id}`
           const updateStmt = db.prepare(updateSql)
-          const updateRes = updateStmt.run(query.query)
+          const updateRes = updateStmt.run(query.query) as ISqliteResp
           // return new QueryResult(updateRes)
           return updateRes
       }
