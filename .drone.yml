@@ -7,8 +7,9 @@ steps:
     image: node:latest
     commands:
       - npm install
-      - npm run start:dev
+      - npm run start:test
       - node test.js
+      - npm run test
 
   # - name: say-hello2
   #   image: node:latest
