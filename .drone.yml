@@ -1,0 +1,16 @@
+kind: pipeline
+name: hello-world123
+type: docker
+
+steps:
+  - name: say-hello
+    image: node:latest
+    commands:
+      - node test.js
+
+  # - name: say-hello2
+  #   image: node:latest
+  #   commands:
+  #     - bash test2.sh
+  #     - npm install
+  #     - npm run standard-test
